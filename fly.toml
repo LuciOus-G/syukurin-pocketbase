@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for syukurin on 2023-08-01T12:33:54+07:00
+# fly.toml app configuration file generated for syukurin-n1 on 2023-08-01T23:47:45+07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "syukurin"
+app = "syukurin-n1"
 primary_region = "sin"
 
 [http_service]
