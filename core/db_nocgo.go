@@ -3,8 +3,8 @@
 package core
 
 import (
+	"os"
 	"strings"
-
 	"text/template"
 
 	_ "github.com/lib/pq"
@@ -20,11 +20,11 @@ func connectDB(dbPath string) (*dbx.DB, error) {
 	sentence := "host={{.hostt}} user={{.usert}} password={{.passwordt}} dbname={{.dbnamet}} port={{.portt}} sslmode=require"
 	t, b := new(template.Template), new(strings.Builder)
 	template.Must(t.Parse(sentence)).Execute(b, map[string]interface{}{
-		"hostt":     "ep-wispy-frog-47181038.ap-southeast-1.aws.neon.tech",
-		"usert":     "void341",
-		"passwordt": "lmIJt3yie0jo",
-		"dbnamet":   "neondb",
-		"portt":     "5432"})
+		"hostt":     os.Getenv("DB_HOST"),
+		"usert":     os.Getenv("DB_USER"),
+		"passwordt": os.Getenv("DB_PASSWORD"),
+		"dbnamet":   os.Getenv("DB_NAME"),
+		"portt":     os.Getenv("DB_PORT")})
 
 	db, err := dbx.Open("postgres", b.String())
 	if err != nil {
