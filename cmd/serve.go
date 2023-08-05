@@ -18,7 +18,7 @@ func NewServeCommand(app core.App, showStartBanner bool) *cobra.Command {
 
 	command := &cobra.Command{
 		Use:   "serve",
-		Short: "Starts the web server (default to 127.0.0.1:80)",
+		Short: "Starts the web server (default to0.0.0.0:80)",
 		Run: func(command *cobra.Command, args []string) {
 			err := apis.Serve(app, &apis.ServeOptions{
 				HttpAddr:        httpAddr,
@@ -43,7 +43,7 @@ func NewServeCommand(app core.App, showStartBanner bool) *cobra.Command {
 	command.PersistentFlags().StringVar(
 		&httpAddr,
 		"http",
-		"127.0.0.1:80",
+		"0.0.0.0:80",
 		"api HTTP server address",
 	)
 

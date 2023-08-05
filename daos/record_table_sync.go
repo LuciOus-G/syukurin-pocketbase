@@ -24,7 +24,7 @@ func (dao *Dao) SyncRecordTableSchema(newCollection *models.Collection, oldColle
 		// -----------------------------------------------------------
 		if oldCollection == nil {
 			cols := map[string]string{
-				schema.FieldNameId:      "varchar default gen_random_uuid() constraint " + newCollection.Name + "_pk primary key not null",
+				schema.FieldNameId:      "varchar default nextval('public._ids'::regclass) constraint " + newCollection.Name + "_pk primary key not null",
 				schema.FieldNameCreated: "varchar default CURRENT_TIMESTAMP not null",
 				schema.FieldNameUpdated: "varchar default CURRENT_TIMESTAMP not null",
 			}
