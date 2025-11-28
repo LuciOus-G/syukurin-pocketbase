@@ -5,6 +5,7 @@ import (
 	"errors"
 	"image"
 	"io"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -14,9 +15,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/disintegration/imaging"
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/pocketbase/pocketbase/tools/list"
@@ -43,19 +43,17 @@ func NewS3(
 ) (*System, error) {
 	ctx := context.Background() // default context
 
-	cred := credentials.NewStaticCredentials(accessKey, secretKey, "")
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("us-east-1"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	client := s3.NewFromConfig(cfg)
 
-	sess, err := session.NewSession(&aws.Config{
-		Region:           aws.String(region),
-		Endpoint:         aws.String(endpoint),
-		Credentials:      cred,
-		S3ForcePathStyle: aws.Bool(s3ForcePathStyle),
-	})
 	if err != nil {
 		return nil, err
 	}
 
-	bucket, err := s3blob.OpenBucket(ctx, sess, bucketName, nil)
+	bucket, err := s3blob.OpenBucket(ctx, client, bucketName, nil)
 	if err != nil {
 		return nil, err
 	}

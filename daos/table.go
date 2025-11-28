@@ -25,7 +25,7 @@ func (dao *Dao) HasTable(tableName string) bool {
 func (dao *Dao) TableColumns(tableName string) ([]string, error) {
 	columns := []string{}
 
-	err := dao.DB().NewQuery("SELECT name FROM PRAGMA_TABLE_INFO({:tableName})").
+	err := dao.DB().NewQuery("SELECT column_name AS name FROM information_schema.columns WHERE table_schema='public' AND table_name='{:tableName}';").
 		Bind(dbx.Params{"tableName": tableName}).
 		Column(&columns)
 
@@ -36,7 +36,7 @@ func (dao *Dao) TableColumns(tableName string) ([]string, error) {
 func (dao *Dao) TableInfo(tableName string) ([]*models.TableInfoRow, error) {
 	info := []*models.TableInfoRow{}
 
-	err := dao.DB().NewQuery("SELECT * FROM PRAGMA_TABLE_INFO({:tableName})").
+	err := dao.DB().NewQuery("SELECT column_name AS name FROM information_schema.columns WHERE table_schema='public' AND table_name='{:tableName}';;").
 		Bind(dbx.Params{"tableName": tableName}).
 		All(&info)
 	if err != nil {
