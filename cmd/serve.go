@@ -43,7 +43,7 @@ func NewServeCommand(app core.App, showStartBanner bool) *cobra.Command {
 	command.PersistentFlags().StringVar(
 		&httpAddr,
 		"http",
-		"127.0.0.1:80",
+		"127.0.0.1:9696",
 		"api HTTP server address",
 	)
 

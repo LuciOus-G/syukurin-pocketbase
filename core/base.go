@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"log"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -306,6 +307,16 @@ func NewBaseApp(config *BaseAppConfig) *BaseApp {
 	app.registerDefaultHooks()
 
 	return app
+}
+
+func (app *BaseApp) Logger() *slog.Logger {
+	return slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelInfo,
+	}))
+}
+
+func (app *BaseApp) IsDev() bool {
+	return true
 }
 
 // IsBootstrapped checks if the application was initialized

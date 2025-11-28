@@ -6,6 +6,8 @@ package core
 import (
 	"context"
 
+	"log/slog"
+
 	"github.com/pocketbase/dbx"
 	"github.com/pocketbase/pocketbase/daos"
 	"github.com/pocketbase/pocketbase/models/settings"
@@ -25,6 +27,10 @@ type App interface {
 	//
 	// DB returns the default app database instance.
 	DB() *dbx.DB
+
+	Logger() *slog.Logger
+
+	IsDev() bool
 
 	// Dao returns the default app Dao instance.
 	//

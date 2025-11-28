@@ -1,5 +1,3 @@
-//go:build !cgo
-
 package core
 
 import (
@@ -20,10 +18,10 @@ func connectDB(dbPath string) (*dbx.DB, error) {
 	sentence := "host={{.hostt}} user={{.usert}} password={{.passwordt}} dbname={{.dbnamet}} port={{.portt}} sslmode=require"
 	t, b := new(template.Template), new(strings.Builder)
 	template.Must(t.Parse(sentence)).Execute(b, map[string]interface{}{
-		"hostt":     "ep-wispy-frog-47181038.ap-southeast-1.aws.neon.tech",
-		"usert":     "void341",
-		"passwordt": "lmIJt3yie0jo",
-		"dbnamet":   "neondb",
+		"hostt":     "192.168.200.2",
+		"usert":     "expenseuser",
+		"passwordt": "114136Labqi",
+		"dbnamet":   "expenses_tracker_db",
 		"portt":     "5432"})
 
 	db, err := dbx.Open("postgres", b.String())
