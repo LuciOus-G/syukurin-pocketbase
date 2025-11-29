@@ -21,6 +21,7 @@
         // push missing
         collection.indexes.push(newIndex);
         collection.indexes = collection.indexes;
+        console.log(collection)
     }
 </script>
 
@@ -50,7 +51,7 @@
         on:click={() => upsertPanel?.show()}
     >
         <span class="txt">+</span>
-        <span class="txt">New index</span>
+        <span class="txt">INDEX</span>
     </button>
 </div>
 

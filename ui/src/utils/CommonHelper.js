@@ -1672,9 +1672,9 @@ export default class CommonHelper {
             result += `\`${indexParts.schemaName}\`.`;
         }
 
-        result += `\`${indexParts.indexName || "idx_" + CommonHelper.randomString(7)}\` `;
+        result += `\"${indexParts.indexName || "idx_" + CommonHelper.randomString(7)}\" `;
 
-        result += `ON \`${indexParts.tableName}\` (`;
+        result += `ON \"${indexParts.tableName}\" (`;
 
         const nonEmptyCols = indexParts.columns.filter((col) => !!col?.name);
 
@@ -1690,13 +1690,13 @@ export default class CommonHelper {
                     item += col.name;
                 } else {
                     // regular identifier
-                    item += ("`" + col.name + "`");
+                    item += ("\"" + col.name + "\"");
                 }
 
                 if (col.collate) {
                     item += (" COLLATE " + col.collate);
                 }
-
+F
                 if (col.sort) {
                     item += (" " + col.sort.toUpperCase());
                 }
